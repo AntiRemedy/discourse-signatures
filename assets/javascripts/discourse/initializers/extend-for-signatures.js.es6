@@ -10,10 +10,12 @@ function attachSignature(api, siteSettings) {
       return;
     }
 
+    var disabled = false;
     const currentUser = api.getCurrentUser();
     if (currentUser) {
-      const enabled = currentUser.get("custom_fields.see_signatures");
-      if (enabled) {
+      disabled = currentUser.get("custom_fields.see_signatures");
+    }
+    if (!disabled) {
         if (siteSettings.signatures_advanced_mode) {
           return [
             dec.h("hr"),
@@ -32,7 +34,6 @@ function attachSignature(api, siteSettings) {
             }),
           ];
         }
-      }
     }
   });
 }
